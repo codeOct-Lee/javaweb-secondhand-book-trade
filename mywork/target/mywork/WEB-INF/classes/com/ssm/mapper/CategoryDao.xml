@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.dao.CategoryDao" >
+    <resultMap id="categoryResultMap" type="com.ssm.pojo.Category" >
+        <id column="cid" property="cid" jdbcType="INTEGER" />
+        <result column="cname" property="cname" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="getAllCategory"  resultType="com.ssm.pojo.Category">
+        select * from category  where state=1;
+    </select>
+
+    <select id="getCategoryName" parameterType="java.lang.Integer" resultType="com.ssm.pojo.Category">
+        select * from category where  cid=#{cid}
+    </select>
+
+    <select id="getAdminCategory"  resultType="com.ssm.pojo.Category">
+        select * from category
+    </select>
+
+    <select id="getCartegortByCid" parameterType="java.lang.Integer" resultType="com.ssm.pojo.Category">
+        select  * from category where cid=#{cid}
+    </select>
+
+    <update id="updateCategory"  parameterType="com.ssm.pojo.Category" >
+        update category set cname=#{cname},state=#{state} where cid=#{cid}
+    </update>
+
+    <insert id="addCategory" parameterType="com.ssm.pojo.Category">
+        insert  into category(cname,state)values (#{cname},#{state})
+    </insert>
+
+    <select id="getCategoryLike" parameterType="java.lang.String" resultType="com.ssm.pojo.Category">
+        select * from category where cname like "%"#{cname}"%"
+    </select>
+
+    <select id="checkCategory" parameterType="java.lang.String" resultType="java.lang.Long">
+        select count(*) from category where cname=#{cname}
+    </select>
+
+    <select id="checkUpCname"  resultType="com.ssm.pojo.Category">
+        select * from category where cname=#{cname} and cid=#{cid}
+    </select>
+
+
+</mapper>
